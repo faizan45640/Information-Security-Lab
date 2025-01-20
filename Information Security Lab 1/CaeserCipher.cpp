@@ -2,7 +2,7 @@
 #include<string>
 using namespace std;
 
-string CaeserCipher(string text , int key){
+string CaeserCipherEncryption(string text , int key){
     string result = "";
      if(key<0){
             key = 26 + key;
@@ -17,9 +17,34 @@ string CaeserCipher(string text , int key){
         }
     }
    
+    return result; 
+}
+string CaeserCipherDecryption(string text, int key){
+    
+    string result="";
+    if(key<0){
+            key = 26 + key;
+        }
+    for(int i=0;i<text.length();i++){
+        if(isupper(text[i])){
+            if(int(text[i]-key-65)<0){
+                result += char(int(text[i]-key-65)%26 +91);
+            }
+            else
+            result += char(int(text[i]-key-65)%26 +65);
+
+        }
+        else{
+            if(int(text[i]-key-97)<0){
+                result += char(int(text[i]-key-97)%26 +123);
+            }
+            else
+            result += char(int(text[i]-key-97)%26 +97);
+        }
+    }
+   
     return result;
 
-    
 }
 
 int main(){
@@ -33,7 +58,9 @@ int main(){
     cout<<"Enter key: ";
     cin>>key;
 
-    cout<<CaeserCipher(text,key);
+    string EncryptedText=CaeserCipherEncryption(text,key);
+    string DecryptedText=CaeserCipherDecryption(EncryptedText,key);
+    cout<<DecryptedText<<endl;
 
 
 }
